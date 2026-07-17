@@ -4,18 +4,19 @@ const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 
-
-const client = new Client()
+const client = PROJECT_ID ? new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
-    .setProject(PROJECT_ID);
+    .setProject(PROJECT_ID) : null;
 
-const database = new Databases(client);
+const database = client ? new Databases(client) : null;
 
 export const updateSearchCount = async (searchTerm, movie) => {
     // use appwrite sdk to check if term already exists in db
     // if it does update the count if not add it to db and set its count to 1\
 
     try {
+        if (!database) return;
+
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
             Query.equal('searchTerm', searchTerm),
         ]);
@@ -45,8 +46,9 @@ export const updateSearchCount = async (searchTerm, movie) => {
 }
 
 export const getTrendingMovies = async () => {
-
     try {
+        if (!database) return [];
+
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
             Query.limit(5),
             Query.orderDesc('count'),
@@ -54,6 +56,6 @@ export const getTrendingMovies = async () => {
         return result.documents;
     } catch (error) {
         console.log(error);
-
+        return [];
     }
 }
