@@ -68,12 +68,12 @@ graph TD
 - **Effort:** Done
 - **Why:** Foundational for all other features. Shows understanding of modern SPA architecture.
 
-**2. 🔺 Dark Mode Toggle (HIGH Priority — Low Effort, High Impact)**
+**2. ✅ Dark Mode Toggle (DONE)**
 - **Wow Factor:** Very High — instantly visible in before/after screenshots
 - **Effort:** Low
-- **Why:** Projects already uses a dark background; adding a light theme toggle is minimal CSS. Every recruiter recognizes this as a quality-of-life feature. Great for portfolio screenshots showing "theme switching capability."
+- **Implementation:** ThemeContext with localStorage persistence, floating sun/moon toggle button, light theme CSS overrides in `[data-theme="light"]` block using Tailwind v4 custom properties. Preference survives page reloads.
 
-**3. 🔺 Loading Skeletons (HIGH Priority — Low Effort, High Impact)**
+**3. 🔄 Loading Skeletons (IN PROGRESS — Low Effort, High Impact)**
 - **Wow Factor:** High — immediately visible in screenshots during loading states
 - **Effort:** Low
 - **Why:** More impressive than a spinner. Shows attention to perceived performance and modern UX patterns. Easy to implement and photograph for a portfolio.

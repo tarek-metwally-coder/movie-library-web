@@ -160,3 +160,44 @@
     display: none;
   }
 }
+
+[data-theme="light"] {
+  --color-primary: #f4f4f9;
+  --color-dark-100: #ffffff;
+  --color-light-100: #1a1a2e;
+  --color-light-200: #4a4a6a;
+  --color-gray-100: #6b7280;
+  --color-white: #1a1a2e;
+
+  body {
+    background: #f4f4f9;
+  }
+
+  main {
+    background: #f4f4f9;
+  }
+
+  .pattern {
+    opacity: 0.05;
+  }
+
+  .movie-card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .fancy-text {
+    -webkit-text-stroke: 5px rgba(74, 74, 106, 0.3);
+  }
+
+  .search input::placeholder {
+    color: #9ca3af;
+  }
+
+  .search input {
+    color: #1a1a2e;
+  }
+
+  .search img {
+    filter: brightness(0.3);
+  }
+}
