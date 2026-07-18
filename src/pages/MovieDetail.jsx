@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import Spinner from '../components/Spinner'
+import { motion } from 'framer-motion'
+import { MovieDetailSkeleton } from '../components/Skeletons'
 import { getMockMovieById } from '../data/mockMovies'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3'
@@ -50,17 +51,17 @@ const MovieDetail = () => {
     fetchMovieDetail()
   }, [id])
 
-  if (loading) return (
-    <div className="wrapper">
-      <Spinner />
-    </div>
-  )
+  if (loading) return <MovieDetailSkeleton />
 
   if (error) return (
-    <div className="wrapper">
-      <Link to="/" className="text-light-200 hover:text-white inline-block mb-6">&larr; Back to Movies</Link>
+    <motion.div
+      className="wrapper"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <Link to="/" className="text-light-200 hover:text-white inline-block mb-6 transition-colors">&larr; Back to Movies</Link>
       <p className="text-red-500 mt-10">{error}</p>
-    </div>
+    </motion.div>
   )
 
   if (!movie) return null
@@ -82,26 +83,46 @@ const MovieDetail = () => {
   }
 
   return (
-    <div className="wrapper">
+    <motion.div
+      className="wrapper"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+    >
       <Link to="/" className="text-light-200 hover:text-white inline-block mb-6 transition-colors">&larr; Back to Movies</Link>
 
       {backdrop && (
-        <div className="relative w-full h-[300px] sm:h-[400px] rounded-2xl overflow-hidden mb-8">
+        <motion.div
+          className="relative w-full h-[300px] sm:h-[400px] rounded-2xl overflow-hidden mb-8"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <img src={backdrop} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent" />
-        </div>
+        </motion.div>
       )}
 
       <div className="flex flex-col sm:flex-row gap-8 mb-12">
-        <div className="shrink-0">
+        <motion.div
+          className="shrink-0"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
           <img
             src={poster}
             alt={movie.title}
             className="w-[250px] h-auto rounded-xl shadow-lg"
           />
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col gap-4">
+        <motion.div
+          className="flex flex-col gap-4"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+        >
           <h1 className="text-4xl sm:text-5xl font-bold text-white">{movie.title}</h1>
 
           {movie.tagline && (
@@ -155,11 +176,16 @@ const MovieDetail = () => {
               <p className="text-white font-medium">{formatCurrency(movie.revenue)}</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {movie.credits?.cast?.length > 0 && (
-        <section className="mb-12">
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+        >
           <h2 className="text-2xl font-bold text-white mb-6">Cast</h2>
           <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {movie.credits.cast.slice(0, 15).map(person => (
@@ -176,11 +202,16 @@ const MovieDetail = () => {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
       )}
 
       {movie.videos?.results?.length > 0 && (
-        <section className="mb-12">
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
           <h2 className="text-2xl font-bold text-white mb-6">Trailers & Videos</h2>
           <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {movie.videos.results.filter(v => v.site === 'YouTube').slice(0, 5).map(video => (
@@ -198,11 +229,16 @@ const MovieDetail = () => {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
       )}
 
       {movie.recommendations?.results?.length > 0 && (
-        <section className="mb-12">
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.35 }}
+        >
           <h2 className="text-2xl font-bold text-white mb-6">Recommendations</h2>
           <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
             {movie.recommendations.results.slice(0, 10).map(rec => (
@@ -218,11 +254,16 @@ const MovieDetail = () => {
               </Link>
             ))}
           </div>
-        </section>
+        </motion.section>
       )}
 
       {movie.production_companies?.length > 0 && (
-        <section className="mb-12">
+        <motion.section
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
           <h2 className="text-2xl font-bold text-white mb-6">Production</h2>
           <div className="flex flex-wrap gap-6">
             {movie.production_companies.map(company => (
@@ -231,9 +272,9 @@ const MovieDetail = () => {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
       )}
-    </div>
+    </motion.div>
   )
 }
 
