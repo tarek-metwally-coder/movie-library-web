@@ -1,12 +1,37 @@
-# React + Vite
+# Movie Library — Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React app for discovering movies: search the TMDB catalogue with debounced live search, and see what's trending based on what users search for most.
 
-Currently, two official plugins are available:
+![Screenshot](docs/screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Live search** with 500 ms debounce to avoid firing a request on every keystroke
+- **Popular movies** by default, switching to search results as you type
+- **Trending section** ranked by search count, tracked whenever a search returns results
+- Loading and error states for every data fetch
 
-## Expanding the ESLint configuration
+## Tech stack
+React 19 · Vite · Tailwind CSS 4 · TMDB API · Appwrite (search-count storage)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Running locally
+```bash
+git clone https://github.com/tarek-metwally-coder/movie-library-web.git
+cd movie-library-web
+npm install
+cp .env.example .env.local  # then fill in your keys
+npm run dev
+```
+
+### Environment variables
+| Variable | Purpose |
+|---|---|
+| `VITE_TMDB_API_KEY` | TMDB API read access token |
+| `VITE_APPWRITE_PROJECT_ID` | Appwrite project |
+| `VITE_APPWRITE_DATABASE_ID` | Appwrite database |
+| `VITE_APPWRITE_COLLECTION_ID` | Collection storing search counts |
+
+## Roadmap
+- [ ] Replace Appwrite with a custom **ASP.NET Core API** (vertical-slice architecture, PostgreSQL)
+- [ ] Proxy TMDB through the API so the key never reaches the browser
+- [ ] Migrate the frontend to TypeScript
+- [ ] Watchlists and user accounts
