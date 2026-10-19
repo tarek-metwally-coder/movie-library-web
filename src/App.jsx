@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Search from './components/search'
+import Search from './components/Search'
 import Spinner from './components/Spinner';
 import MovieCard from './components/MovieCard';
 import { useDebounce } from 'react-use';
@@ -110,7 +110,7 @@ const App = () => {
           <Spinner />
         ) : trendingErrorMessage ? (
           <p className='text-red-500 mt-[40px] mb-[40px]'>{trendingErrorMessage}</p>
-        ) : trendingMovies.length > 0 && (
+        ) : trendingMovies?.length > 0 && (
           <section className='trending'>
             <h2>Trending Movies</h2>
             <ul>
